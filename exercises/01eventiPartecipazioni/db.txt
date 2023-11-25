@@ -1,0 +1,50 @@
+group: EventiPartecipazioni
+
+EVENTO = {
+id, titolo, data, categoria, costo_partecipazione, idcatering
+1, 'Halloweed Party 2013', 2013-10-31, 1, 5, 1
+2, 'Pre-Natale con i tuoi 2013', 2013-12-18, 1, 10, 1
+3, 'Festa di Laurea di Patrizia', 2017-07-19, 2, 0, 1
+4, 'Matrimonio di Mirko e Paolo', 2018-09-20, 3, 0, 1
+5, 'Festa di Laurea di Filippo', 2021-07-19, 2, 0, 1
+}
+
+ORGANIZZATORE = {
+id, idevento
+1, 1
+1, 2
+1, 3
+1, 4
+2, 5
+}
+
+PERSONA = {
+id, nome, cognome, provincia_residenza
+1, 'Mario', 'Rossi', 'MI'
+2, 'Gianluca', 'Bianchi', 'MI'
+3, 'Filippo', 'Verdi', 'BG'
+4, 'Marta', 'Gialli', 'BG'
+5, 'Floriana', 'Verdi', 'BG'
+}
+
+PARTECIPANTE = {
+idevento, idpersona
+1, 1
+2, 1
+4, 1
+5, 1
+1, 2
+2, 2
+}
+
+CATERING = {
+idcompagnia, nome, descrizione
+1, 'VerdiSapori', 'Catering di eventi vegetariano'
+}
+
+CATEGORIAEVENTO = {
+id, descrizione
+1, 'Festività'
+2, 'Festa di Laurea'
+3, 'Matrimonio'
+}

@@ -1,0 +1,1 @@
+π nome, cognome ( PERSONA ⨝ PERSONA.id = PARTECIPANTE.idpersona PARTECIPANTE ⨝ PARTECIPANTE.idevento = EVENTO.id (σ data > date('2013-12-15') ∧ data < date('2013-12-20')(EVENTO)))

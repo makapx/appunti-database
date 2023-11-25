@@ -1,0 +1,12 @@
+PERSONA ⨝ PERSONA.id = idorg ( π idorg( ρ idorg ← id (PERSONA )) -
+	π idorg(
+		ρ idorg ← ORGANIZZATORE.id(
+			ORGANIZZATORE ⨝ ORGANIZZATORE.idevento = EVENTO.id (
+				EVENTO ⨝ EVENTO.categoria = CATEGORIAEVENTO.id (
+					σ descrizione = 'Matrimonio' (CATEGORIAEVENTO)
+				)
+			)
+		)
+	)
+)
+	

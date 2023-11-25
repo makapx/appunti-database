@@ -1,0 +1,6 @@
+PERSONA ⨝ PERSONA.id = idpersona ( π idpersona, descrizione (
+	PARTECIPANTE ⨝ PARTECIPANTE.idevento = EVENTO.id EVENTO ⨝
+	categoria = CATEGORIAEVENTO.id CATEGORIAEVENTO )
+÷
+π descrizione (CATEGORIAEVENTO)
+)

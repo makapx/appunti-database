@@ -1,0 +1,8 @@
+π nomem ( MARINAIO ⨝
+	( π idm ( PRENOTAZIONE ⨝ idm = idm2 ∧ idb ≠ idb2 (
+		ρ data2 ← data (	ρ idb2 ← idb (ρ idm2 ← idm
+		(PRENOTAZIONE)
+		)
+	))
+ ))
+)

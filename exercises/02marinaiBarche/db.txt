@@ -1,0 +1,49 @@
+-- this is an example
+group: marinaiBarche 
+
+MARINAIO = {
+	idm:number, nomem:string, rating:number, eta:number
+	1, Marco, 10, 20
+	2, Gianni, 7, 30
+	3, Ada, 15, 22
+	4, Matteo, 20, 40
+	5, Giuseppe, 6, 24
+	6, Eren, 9, 22
+	7, Mikasa, 9, 22
+}
+
+BARCA = {
+	idb:number, nomeb:string, colore:string
+	1, BlueFish, blue
+	2, RedLion, rosso
+	3, GreenBulbasaur, verde
+	4, PinkTriangle, rosa
+	5, RedPepi, rosso
+	6, YellowParrot, giallo
+	7, YellowPepi, giallo
+	8, Walle, giallo
+	98, WallMaria, beige
+	101, WallRose, rosa
+	103, WallSina, giallo
+	104, BlueFish, marrone
+}
+
+PRENOTAZIONE = {
+idm:number, idb:number, data:date
+
+1, 1, 2023-10-12
+1, 2, 2023-10-12
+1, 3, 2023-10-12
+1, 4, 2023-10-12
+1, 5, 2023-10-12
+1, 6, 2023-10-12
+1, 7, 2023-10-12
+1, 8, 2023-10-12
+1, 98, 2023-10-12
+1, 101, 2023-10-12
+1, 103, 2023-10-12
+1, 104, 2023-10-12
+
+2, 1, 2023-11-12
+6, 103, 2023-11-12
+}

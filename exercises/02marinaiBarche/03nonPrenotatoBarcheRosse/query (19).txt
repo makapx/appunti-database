@@ -1,0 +1,1 @@
+π idm, nomem( MARINAIO ) - π idm, nomem ( MARINAIO ⨝ PRENOTAZIONE ⨝ σ colore = 'rosso' BARCA)

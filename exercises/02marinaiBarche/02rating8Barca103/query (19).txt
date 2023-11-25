@@ -1,0 +1,1 @@
+π idm (σ MARINAIO.rating ≥ 8 ∨ PRENOTAZIONE.idb = 103 (MARINAIO ⨝ PRENOTAZIONE))
