@@ -384,3 +384,165 @@ Di default gli operatori aggregati funzionano con un'implicita clausola `ALL`, a
 
 Visto che gli operatori aggregati lavorano su gruppi di tuble e producono un singolo valore numerico, **non è possibile concatenarli tra loro**.
 
+## `JOIN`
+
+È possibile mettere in relazione più tabelle attraverso i loro attributi (o meglio i valori di suddetti attributi) utilizzando il costrutto `JOIN`.
+Similmente all'algebra relazionale, una `JOIN` è un sottoinsieme del prodotto cartesiano dove a venire selezionati sono gli attributi comuni alle due entità (tabelle) oggetto dell'operazione.
+
+Ovviamente la `JOIN` non è l'unico modo per mettere in relazione due o più tabelle, un esempio implicito di `JOIN` infatti lo si ha già quando si fanno query del tipo:
+
+```sql
+SELECT paternity.child, father, mother
+FROM maternity, paternity
+WHERE paternity.child = maternity.child;
+```
+
+Ciò nonostante la `JOIN` resta il costrutto più potente e più adatto a questo tipo di operazioni.
+
+La stessa query formulata con il costrutto JOIN si presenta così:
+
+```sql
+SELECT paternity.child, father, mother
+FROM maternity JOIN paternity ON paternity.child = maternity.child;
+```
+
+Come avviene in algebra relazionale, una `JOIN` di una tabella con sè stessa ha bisogno di essera accompagnata da ridenominazione.
+
+```sql
+-- Le info dei padri accompagnate a quelle dei figli --
+SELECT ...
+FROM persons p1 JOIN paternity ON
+p1.name = paternity.father JOIN persons p2 ON
+paternity.child = p2.name = p2.child;
+```
+
+Questo tipo di `JOIN` viene spesso definita *self join*.
+
+### `LEFT`, `RIGHT` e `FULL JOIN`
+
+Quando si effettua un'operazione di JOIN i valori NULL vengono esclusi dal risultato, quindi non comparirà mai una tupla del tipo:
+
+| father | mother | child     |
+| ------ | ------ | --------- |
+| NULL   | Robin  | Sebastian |
+
+L'esclusione di queste tuple dal risultato non sempre è desiderabile. Per ovviare a questo problema utilizziamo i costrutti:
+
+- `LEFT JOIN`
+- `RIGHT JOIN`
+- `FULL JOIN`
+
+Che includono nel risultato i valori NULL rispettivamente per le relazioni a sinistra (primo operando), a destra (secondo operando) e per entrambe.
+
+```sql
+-- Se noto, verrà mostrato il padre, altrimenti NULL --
+SELECT father, mother, child
+FROM paternity LEFT JOIN maternity
+ON paternity.child = maternity.child
+```
+
+```sql
+-- Anche se nessuno dei due genitori è noto --
+SELECT father, mother, child
+FROM paternity FULL JOIN maternity
+ON paternity.child = maternity.child
+```
+
+Questo tipo di JOIN viene comunemente detto *outer join* o *join esterno*.
+
+### Atri esempi di `JOIN`
+
+Altri esempi di JOIN sono ad esempio:
+
+- `NATURAL JOIN` (simile all'algebra relazionale)
+- `JOIN` ... `USING` (su un subset di attributi comuni)
+
+```sql
+-- Utilizziamo gli attributi con lo stesso nome --
+SELECT students.name, exams.course, exams.grade
+FROM exams NATURAL JOIN students;
+```
+
+È possibile utilizzare la `NATURAL JOIN` in combinazione con i costrutti `LEFT`, `RIGHT` e `FULL` per generare una *natural outer join*, ovvero una join sugli attributi che hanno lo stesso nome (senza condizione esplicita) dove vengono mantenuti i valori `NULL` (da una sola o da entrambe le parti a seconda del costrutto di accompagnamento).
+
+La `JOIN` ... `USING` può essere vista come una **sintassi particolare della natural join**, dove al posto della clausola `ON` viene utilizzata la clausola `USING` indicando tra parentesi gli attributi comuni alle entità.
+
+```sql
+-- Esempio di JOIN con USING --
+SELECT e.EMPLOYEE_ID, e.LAST_NAME, d.LOCATION_ID
+FROM Employees e JOIN Departments d
+USING(DEPARTMENT_ID);
+```
+
+## `UNION`, `INTERSECT`, `EXCEPT`
+
+È possibile unire i risultati di più query attraverso il costrutto `UNION`. Due relazioni legate da una `UNION` **necessitano di domini compatibili** affinchè l'operazione vada a buon fine. Inoltre la UNION non ha modo di verificare la coerenza semantica del risultato, quindi deve essere accortezza dello sviluppatore sottoporre attributi ordinati e ridenominare le colonne del risultato in maniera coerente.
+
+```sql
+SELECT father as parent, child
+FROM paternity
+UNION
+SELECT mother as parent, child
+FROM maternity
+```
+
+In questo caso se gli attributi `parent` e `child` di una delle due query fossero invertiti di posto si avrebbe un'icoerenza nel risultato, visto che la `UNION` accoda semplicemente i valori.
+
+Si comportano analogamente anche i costrutti `INTERSECT` ed `EXCEPT` che effettuano rispettivamente l'intersezione e la divisione.
+
+```sql
+SELECT NAME, AGE, HOBBY FROM STUDENTS_HOBBY
+INTERSECT 
+SELECT NAME, AGE, HOBBY FROM STUDENTS;
+```
+
+```sql
+SELECT NAME, AGE, HOBBY FROM STUDENTS_HOBBY
+WHERE AGE BETWEEN 25 AND 30
+INTERSECT
+SELECT NAME, AGE, HOBBY FROM STUDENTS
+WHERE AGE BETWEEN 20 AND 30;
+```
+
+```sql
+SELECT NAME, AGE, HOBBY FROM STUDENTS_HOBBY
+WHERE HOBBY IN('Cricket')
+INTERSECT
+SELECT NAME, AGE, HOBBY FROM STUDENTS
+WHERE HOBBY IN('Cricket');
+```
+
+```sql
+SELECT NAME, HOBBY, AGE FROM STUDENTS
+EXCEPT 	
+SELECT NAME, HOBBY, AGE FROM STUDENTS_HOBBY;
+```
+
+```sql
+SELECT NAME, HOBBY, AGE
+FROM STUDENTS
+WHERE AGE BETWEEN 20 AND 30
+EXCEPT 
+SELECT NAME, HOBBY, AGE 
+FROM STUDENTS_HOBBY
+WHERE AGE BETWEEN 20 AND 30
+```
+
+## Query nidificate
+
+È possibile sottoporre alla clausola WHERE, oltre ai predicati e alle espressioni semplici, anche altre query. Solitamente in questi casi vengono utilizzati costrutti come:
+
+- `[NOT] EXISTS`
+- `[NOT] IN`
+
+```sql
+-- Le informazioni di tutti gli impiegati londinesi --
+SELECT firstName, surname
+FROM Emplotee
+WHERE Dept IN (
+	SELECT deptName
+	FROM Department
+	WHERE city = 'London'
+);
+```
+
