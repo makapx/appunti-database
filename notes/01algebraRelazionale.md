@@ -1,19 +1,21 @@
 # ALGEBRA RELAZIONALE
 
+[TOC]
+
 L'algebra relazionale è uno strumento teorico, basato sulla teoria matematica, che permette di definire strutture dati e relazioni a partire da esse. Teorizzata da Edgar F. Codd a cavallo tra i '70 e gli '80, ancora oggi è un potente strumento per astrarre i concetti legati ai database.
 
 ## Nomenclatura
 
 Vengono convenzionalmente utilizzati i seguenti simboli con scopo a seguire:
 
-- $R$, $S$, $P$ ed altre lettere finali dell'alfabeto denotano le relazioni
-- $A$, $B$ e altre lettere iniziali dell'alfabeto denotano i singoli attributi, contenuti all'interno delle relazioni
-- $X$, $Y$ denotano insiemi di attributi all'interno delle relazioni, ad esempio data una relazione:
+- $R$, $S$, $P$ ed altre lettere finali dell'alfabeto denotano le **relazioni**
+- $A$, $B$ e altre lettere iniziali dell'alfabeto denotano i **singoli attributi**, contenuti all'interno delle relazioni
+- $X$, $Y$ denotano **insiemi di attributi** all'interno delle relazioni, ad esempio data una relazione:
   $Esami = \{id,data,professore,insegnamento,voto,matricola\}$ si può estrarre un insieme di attributi $VotiEsami = \{voto, matricola\}$ 
 
 ## Operatori fondamentali
 
-Anche detti operatori primitivi. Rappresentano le operazioni principali che è possibile compiere su una relazione.
+Anche detti operatori **primitivi**. Rappresentano le operazioni principali che è possibile compiere su una relazione.
 
 - **Ridenominazione** $\rho$ (*rho* o anche *ro*): permette di rinominare gli attributi di una relazione, molto utile per generare alias.
 
@@ -21,7 +23,7 @@ Anche detti operatori primitivi. Rappresentano le operazioni principali che è p
 
 - **Differenza** $-$: operazione di differenza classica della teoria degli insiemi
 
-- **Proiezione** $\Pi$ (*Pi* o pi-greco maiuscuolo): consente di ottenere un sottoinsieme della relazione proiettata. Per ricondurci al linguaggio SQL, può essere intesa come una `SELECT` priva di condizioni.
+- **Proiezione** $\Pi$ o $\pi$ (*Pi* o pi-greco maiuscuolo): consente di ottenere un sottoinsieme della relazione proiettata. Per ricondurci al linguaggio SQL, può essere intesa come una `SELECT` priva di condizioni.
 
   ```sql
   SELECT id, matricola, voto FROM esami;
@@ -36,7 +38,7 @@ Anche detti operatori primitivi. Rappresentano le operazioni principali che è p
   SELECT * FROM esami WHERE matricola = '12345678';
   ```
 
-  La selezione può fare uso degli operatori $=, \neq, \ge, \le,>,<$ e le condizioni possono essere combinate tra loro attraverso più operatori logici $\and, \or,\neg $.
+  La selezione può fare uso degli operatori $=, \neq, \ge, \le,>,<$ e le condizioni possono essere combinate tra loro attraverso piùoperatori logici $\and, \or,\neg $.
 
 - **Prodotto cartesiano** $\times$: operazione di prodotto cartesiano classica della teoria degli insiemi. Il prodotto cartesiano è definito nel caso in cui le relazioni sottoposte non abbiano attributi comuni. 
 
@@ -52,7 +54,7 @@ Prendiamo una relazione $Studente$ così composta e rinominiamo l'attributo $ID$
 | 987654321 | Robert |   Fox   |
 
 $$
-\sigma_{ ID \rightarrow Matricola }(Studente)
+\rho_{ (ID \rightarrow Matricola) }(Studente)
 $$
 
 Otteniamo dopo la ridenominazione una **nuova** relazione le cui tuple rimangono invariate ma l'attributo $ID$ è stato rinominato.
@@ -190,8 +192,6 @@ $$
 | 87654321  |  24   |   Melone   |  Estate  |
 | 12345678  |  27   |  Pomodori  |  Estate  |
 | 87654321  |  24   |  Pomodori  |  Estate  |
-
-
 
 ### :notebook_with_decorative_cover: Osservazioni
 
